@@ -133,7 +133,7 @@ button:hover{
 <h2 id="title">🤖 AI Personality Scanner <span class="emoji">✨</span></h2>
 
 <p id="text" class="blink">
-This AI can analyze your personality with 99.98% accuracy.<br>And yes, it is 100% dramatic. 😎
+This AI can analyze your personality with 99.98% accuracy.<br>And yes... it is about to reveal something very special. 😌
 </p>
 
 <div class="bar" id="bar">
@@ -176,12 +176,14 @@ function next(){
     if(step==1){
         document.getElementById("text").innerHTML="📡 Connecting to AI Server...";
         document.getElementById("text").classList.remove("blink");
+        document.getElementById("title").innerHTML="🤖 AI Personality Scanner <span class=\"emoji\">⚡</span>";
     }
 
     if(step==2){
         document.getElementById("text").innerHTML="🧠 Reading Curiosity Level...";
         document.getElementById("bar").style.display="block";
         document.getElementById("text").classList.add("blink");
+        document.getElementById("title").innerHTML="🤖 AI Personality Scanner <span class=\"emoji\">🌙</span>";
 
         setTimeout(()=>{
             document.getElementById("fill").style.width="100%";
@@ -193,6 +195,7 @@ function next(){
 
         document.getElementById("text").innerHTML="Calculating Final Result...";
         document.getElementById("text").classList.add("blink");
+        document.getElementById("title").innerHTML="🤖 AI Personality Scanner <span class=\"emoji\">💫</span>";
 
         setTimeout(()=>{
 
