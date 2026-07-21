@@ -17,6 +17,7 @@ body{
     height:100vh;
     text-align:center;
     overflow:hidden;
+    position:relative;
 }
 
 .card{
@@ -27,6 +28,7 @@ body{
     box-shadow:0 0 35px rgba(255,255,255,0.25);
     position:relative;
     border:2px solid rgba(255,255,255,0.15);
+    animation: popIn 0.6s ease;
 }
 
 .sparkle{
@@ -97,6 +99,8 @@ button:hover{
 
 .emoji{font-size:1.3rem; animation:bounce 1s infinite; display:inline-block;}
 
+.blink{animation: blink 0.8s infinite;}
+
 @keyframes float{
     0%,100%{transform:translateY(0) scale(1);opacity:0.4;}
     50%{transform:translateY(-12px) scale(1.2);opacity:1;}
@@ -105,6 +109,16 @@ button:hover{
 @keyframes bounce{
     0%,100%{transform:translateY(0);} 
     50%{transform:translateY(-6px);} 
+}
+
+@keyframes popIn{
+    from{transform:scale(0.95);opacity:0.6;}
+    to{transform:scale(1);opacity:1;}
+}
+
+@keyframes blink{
+    0%,100%{opacity:1;}
+    50%{opacity:0.3;}
 }
 </style>
 </head>
@@ -118,7 +132,7 @@ button:hover{
 
 <h2 id="title">🤖 AI Personality Scanner <span class="emoji">✨</span></h2>
 
-<p id="text">
+<p id="text" class="blink">
 This AI can analyze your personality with 99.98% accuracy.<br>And yes, it is 100% dramatic. 😎
 </p>
 
@@ -161,11 +175,13 @@ function next(){
 
     if(step==1){
         document.getElementById("text").innerHTML="📡 Connecting to AI Server...";
+        document.getElementById("text").classList.remove("blink");
     }
 
     if(step==2){
         document.getElementById("text").innerHTML="🧠 Reading Curiosity Level...";
         document.getElementById("bar").style.display="block";
+        document.getElementById("text").classList.add("blink");
 
         setTimeout(()=>{
             document.getElementById("fill").style.width="100%";
@@ -176,6 +192,7 @@ function next(){
     if(step==3){
 
         document.getElementById("text").innerHTML="Calculating Final Result...";
+        document.getElementById("text").classList.add("blink");
 
         setTimeout(()=>{
 
