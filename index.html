@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AI Personality Scanner</title>
+    <title>For My Girl</title>
     <style>
       :root {
         color-scheme: dark;
@@ -15,177 +15,88 @@
 
       body {
         margin: 0;
-        font-family: Inter, Arial, Helvetica, sans-serif;
-        background: radial-gradient(circle at top, #1e3a8a 0%, #0f172a 45%, #020617 100%);
-        color: #f8fafc;
+        font-family: "Trebuchet MS", Arial, sans-serif;
         min-height: 100vh;
-      }
-
-      main {
-        max-width: 1000px;
-        margin: 0 auto;
-        padding: 3rem 1.2rem 4rem;
+        display: grid;
+        place-items: center;
+        padding: 1.5rem;
+        background: linear-gradient(135deg, #ff5e7a 0%, #ff8e53 45%, #ffd166 100%);
+        color: #fff;
       }
 
       .card {
-        background: rgba(15, 23, 42, 0.82);
-        border: 1px solid rgba(148, 163, 184, 0.25);
+        width: min(100%, 760px);
+        background: rgba(255, 255, 255, 0.16);
+        border: 1px solid rgba(255, 255, 255, 0.28);
+        backdrop-filter: blur(14px);
         border-radius: 24px;
         padding: 2rem;
-        box-shadow: 0 25px 50px rgba(2, 6, 23, 0.35);
-        backdrop-filter: blur(14px);
+        box-shadow: 0 20px 45px rgba(0, 0, 0, 0.2);
+        text-align: center;
       }
 
-      .hero {
-        display: grid;
-        gap: 1.2rem;
-        margin-bottom: 1.4rem;
-      }
-
-      .eyebrow {
-        display: inline-block;
-        width: fit-content;
-        padding: 0.45rem 0.8rem;
-        border-radius: 999px;
-        background: rgba(34, 211, 238, 0.16);
-        color: #a5f3fc;
-        font-size: 0.8rem;
-        font-weight: 700;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
+      .heart {
+        font-size: 3rem;
+        margin-bottom: 0.5rem;
+        animation: pulse 1.2s infinite;
       }
 
       h1 {
-        margin: 0;
-        font-size: clamp(2rem, 4vw, 3rem);
+        margin: 0 0 0.7rem;
+        font-size: clamp(2rem, 4vw, 2.8rem);
       }
 
       p {
-        margin: 0;
+        margin: 0 auto 1rem;
         line-height: 1.7;
-        color: #cbd5e1;
-        font-size: 1rem;
+        font-size: 1.05rem;
+        max-width: 620px;
       }
 
-      .scanner-grid {
-        display: grid;
-        gap: 1rem;
-        grid-template-columns: 1.2fr 0.8fr;
-      }
-
-      textarea {
-        width: 100%;
-        min-height: 150px;
-        border: 1px solid rgba(148, 163, 184, 0.3);
-        border-radius: 16px;
-        padding: 1rem;
-        background: rgba(2, 6, 23, 0.6);
-        color: #f8fafc;
-        font: inherit;
-        resize: vertical;
-      }
-
-      button {
-        margin-top: 0.8rem;
+      .button {
         border: none;
         border-radius: 999px;
-        padding: 0.8rem 1.1rem;
+        padding: 0.85rem 1.2rem;
+        background: #fff;
+        color: #ff4d6d;
         font-weight: 700;
         cursor: pointer;
-        background: linear-gradient(135deg, #22d3ee, #6366f1);
-        color: white;
+        font-size: 1rem;
+        margin-top: 0.5rem;
       }
 
-      .result-box {
+      .message {
+        margin-top: 1rem;
         padding: 1rem;
         border-radius: 16px;
-        background: rgba(34, 211, 238, 0.12);
-        border: 1px solid rgba(34, 211, 238, 0.28);
+        background: rgba(255, 255, 255, 0.18);
+        display: none;
       }
 
-      .traits {
-        display: grid;
-        gap: 0.7rem;
-        margin-top: 1rem;
-      }
-
-      .trait {
-        padding: 0.7rem 0.9rem;
-        border-radius: 12px;
-        background: rgba(248, 250, 252, 0.08);
-      }
-
-      @media (max-width: 760px) {
-        .scanner-grid {
-          grid-template-columns: 1fr;
-        }
+      @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.15); }
       }
     </style>
   </head>
   <body>
-    <main>
-      <section class="card">
-        <div class="hero">
-          <span class="eyebrow">AI Personality Scanner</span>
-          <h1>Discover the personality behind your AI voice.</h1>
-          <p>Paste a message, and the scanner will reveal the tone, energy, and emotional profile it suggests.</p>
-        </div>
-
-        <div class="scanner-grid">
-          <div>
-            <label for="prompt">Try a sample prompt</label>
-            <textarea id="prompt" placeholder="Type something like: I love helping people, but I need more calm and structure in my day.">I want to be more confident, thoughtful, and optimistic while staying grounded in reality.</textarea>
-            <button id="scanBtn">Run scanner</button>
-          </div>
-
-          <div class="result-box" id="resultBox">
-            <strong>Scan result</strong>
-            <p>Your analysis will appear here after you run the scanner.</p>
-            <div class="traits">
-              <div class="trait">Trait: Balanced</div>
-              <div class="trait">Energy: Curious</div>
-              <div class="trait">Style: Reflective</div>
-            </div>
-          </div>
-        </div>
-      </section>
+    <main class="card">
+      <div class="heart">💖</div>
+      <h1>For my favorite girl</h1>
+      <p>You make my world brighter, sweeter, and a whole lot more fun. I just wanted to make you a little page that says: you are loved, admired, and so special to me.</p>
+      <button class="button" id="revealBtn">Tap for a surprise</button>
+      <div class="message" id="messageBox">
+        <strong>You are my favorite person, my smile, and my happy place. ❤️</strong>
+      </div>
     </main>
 
     <script>
-      const scanBtn = document.getElementById('scanBtn');
-      const promptInput = document.getElementById('prompt');
-      const resultBox = document.getElementById('resultBox');
+      const revealBtn = document.getElementById('revealBtn');
+      const messageBox = document.getElementById('messageBox');
 
-      scanBtn.addEventListener('click', () => {
-        const text = promptInput.value.trim();
-        const lower = text.toLowerCase();
-
-        let tone = 'Balanced';
-        let energy = 'Curious';
-        let style = 'Reflective';
-
-        if (lower.includes('confident') || lower.includes('strong')) {
-          tone = 'Confident';
-        }
-        if (lower.includes('calm') || lower.includes('grounded')) {
-          style = 'Calm';
-        }
-        if (lower.includes('optimistic') || lower.includes('hope')) {
-          energy = 'Optimistic';
-        }
-        if (lower.includes('help') || lower.includes('people')) {
-          tone = 'Compassionate';
-        }
-
-        resultBox.innerHTML = `
-          <strong>Scan result</strong>
-          <p>Your message suggests a ${tone.toLowerCase()} personality with ${energy.toLowerCase()} energy and a ${style.toLowerCase()} communication style.</p>
-          <div class="traits">
-            <div class="trait">Trait: ${tone}</div>
-            <div class="trait">Energy: ${energy}</div>
-            <div class="trait">Style: ${style}</div>
-          </div>
-        `;
+      revealBtn.addEventListener('click', () => {
+        messageBox.style.display = 'block';
+        revealBtn.textContent = 'You already know it';
       });
     </script>
   </body>
