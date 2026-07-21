@@ -24,7 +24,7 @@ body{
     background:rgba(22,27,34,0.95);
     padding:25px;
     border-radius:22px;
-    width:min(90%, 380px);
+    width:min(90%, 400px);
     box-shadow:0 0 35px rgba(255,255,255,0.25);
     position:relative;
     border:2px solid rgba(255,255,255,0.15);
@@ -78,6 +78,15 @@ button:hover{
     display:none;
     font-size:18px;
     line-height:1.6;
+}
+
+.result-row{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    margin:6px 0;
+    font-size:15px;
 }
 
 .fake-btns{
@@ -141,26 +150,30 @@ This AI can analyze your personality with 99.98% accuracy.<br>And yes... it is a
 </div>
 
 <div class="result" id="result">
-<h2>🎉 Scan Complete</h2>
+<h2>🎉 Scan Complete 💖</h2>
 
-<p>
-Curiosity : ⭐⭐⭐⭐⭐<br>
-Patience : ⭐⭐⭐⭐☆<br>
-Smile : ❌ Not Detected
-</p>
+<div class="result-row">💗 Love Meter : 100%</div>
+<div class="result-row">✨ Curiosity : 5/5</div>
+<div class="result-row">💌 Patience : 4/5</div>
+<div class="result-row">😄 Smile : Detected ❤️</div>
+<div class="result-row">🧡 Drama : Maximum</div>
+<div class="result-row">🌸 Mischief : Legendary</div>
 
 <h3>😂 RESULT 😂</h3>
 
 <p>
 You clicked every button just to know the result! 🤣
 <br><br>
-😊 Now smile... Mission Successful.
+💘 Now smile... Mission Successful.
 </p>
 </div>
 
 <div class="fake-btns">
 <button onclick="next()" id="btn">Start Scan</button>
 <button onclick="surprise()">Try Surprise</button>
+<button onclick="showLove()">Love Mode</button>
+<button onclick="showDrama()">Drama Mode</button>
+<button onclick="showCute()">Cute Mode</button>
 </div>
 
 </div>
@@ -218,6 +231,24 @@ function surprise(){
     setTimeout(()=>{
         document.getElementById("text").innerHTML="✨ Bonus: You have 100% charm, 0% chill, and 999% snack energy.";
     },1800);
+}
+
+function showLove(){
+    document.getElementById("text").innerHTML="💘 The AI detected a strong love signal... and a very cute one too.";
+    document.getElementById("bar").style.display="block";
+    document.getElementById("fill").style.width="100%";
+}
+
+function showDrama(){
+    document.getElementById("text").innerHTML="🎭 Drama level rising... prepare for maximum softness.";
+    document.getElementById("bar").style.display="block";
+    document.getElementById("fill").style.width="100%";
+}
+
+function showCute(){
+    document.getElementById("text").innerHTML="🌸 Cute overload activated... adorable chaos incoming.";
+    document.getElementById("bar").style.display="block";
+    document.getElementById("fill").style.width="100%";
 }
 
 </script>
