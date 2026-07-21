@@ -9,7 +9,7 @@
 body{
     margin:0;
     font-family:Arial;
-    background:linear-gradient(135deg,#0d1117,#1f2937,#0d1117);
+    background:linear-gradient(135deg,#ff4d6d,#7b2cbf,#00b4d8,#00f5d4);
     color:white;
     display:flex;
     justify-content:center;
@@ -20,21 +20,22 @@ body{
 }
 
 .card{
-    background:#161b22;
+    background:rgba(22,27,34,0.95);
     padding:25px;
-    border-radius:18px;
-    width:min(90%, 360px);
-    box-shadow:0 0 25px #00ff99;
+    border-radius:22px;
+    width:min(90%, 380px);
+    box-shadow:0 0 35px rgba(255,255,255,0.25);
     position:relative;
+    border:2px solid rgba(255,255,255,0.15);
 }
 
 .sparkle{
     position:absolute;
-    width:8px;
-    height:8px;
-    background:#00ff99;
+    width:10px;
+    height:10px;
+    background:#ffd166;
     border-radius:50%;
-    animation: float 2s infinite ease-in-out;
+    animation: float 1.8s infinite ease-in-out;
 }
 
 button{
@@ -42,21 +43,22 @@ button{
     padding:12px 25px;
     font-size:16px;
     border:none;
-    border-radius:10px;
-    background:linear-gradient(135deg,#00c853,#00e676);
+    border-radius:999px;
+    background:linear-gradient(135deg,#ff5f7d,#ff8a5b);
     color:white;
     cursor:pointer;
-    transition:transform 0.2s ease;
+    transition:transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow:0 5px 15px rgba(255,95,125,0.35);
 }
 
 button:hover{
-    transform:scale(1.05);
+    transform:scale(1.06);
 }
 
 .bar{
     width:100%;
     height:18px;
-    background:#333;
+    background:#444;
     border-radius:10px;
     margin-top:20px;
     overflow:hidden;
@@ -66,7 +68,7 @@ button:hover{
 .fill{
     height:100%;
     width:0%;
-    background:linear-gradient(90deg,#00ff99,#00c853);
+    background:linear-gradient(90deg,#00ff99,#ffd166);
     transition:width 3s linear;
 }
 
@@ -88,13 +90,21 @@ button:hover{
     margin-top:0;
     padding:8px 12px;
     font-size:13px;
-    background:#21262d;
+    background:#2d3748;
     color:#fff;
+    box-shadow:none;
 }
 
+.emoji{font-size:1.3rem; animation:bounce 1s infinite; display:inline-block;}
+
 @keyframes float{
-    0%,100%{transform:translateY(0);opacity:0.4;}
-    50%{transform:translateY(-12px);opacity:1;}
+    0%,100%{transform:translateY(0) scale(1);opacity:0.4;}
+    50%{transform:translateY(-12px) scale(1.2);opacity:1;}
+}
+
+@keyframes bounce{
+    0%,100%{transform:translateY(0);} 
+    50%{transform:translateY(-6px);} 
 }
 </style>
 </head>
@@ -106,10 +116,10 @@ button:hover{
 <div class="sparkle" style="top:20px; right:25px; animation-delay:0.6s;"></div>
 <div class="sparkle" style="bottom:20px; left:30px; animation-delay:1.1s;"></div>
 
-<h2 id="title">🤖 AI Personality Scanner</h2>
+<h2 id="title">🤖 AI Personality Scanner <span class="emoji">✨</span></h2>
 
 <p id="text">
-This AI can analyze your personality with 99.98% accuracy.
+This AI can analyze your personality with 99.98% accuracy.<br>And yes, it is 100% dramatic. 😎
 </p>
 
 <div class="bar" id="bar">
@@ -186,7 +196,7 @@ function surprise(){
     document.getElementById("bar").style.display="block";
     document.getElementById("fill").style.width="100%";
     setTimeout(()=>{
-        document.getElementById("text").innerHTML="✨ Bonus: You have 100% charm and 0% chill.";
+        document.getElementById("text").innerHTML="✨ Bonus: You have 100% charm, 0% chill, and 999% snack energy.";
     },1800);
 }
 
