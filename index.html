@@ -166,13 +166,13 @@ button:hover{
 <div id="intro">
 <p id="text" class="blink">
 A tiny little quiz for your heart 💕<br>
-I will ask her a few sweet questions about you, her mood, and what she feels about you. Then I will define the result with extra cuteness. 🌸💫
+She will answer 10 sweet questions about you, her mood, and what she feels about you. Then the love meter will be calculated with a cute little algorithm. 🌸💫
 </p>
 <button onclick="startQuiz()">Start Quiz</button>
 </div>
 
 <div id="quiz" class="hidden">
-<p id="progress" class="small">Question 1 of 3</p>
+<p id="progress" class="small">Question 1 of 10</p>
 <h3 id="questionText">Question will appear here</h3>
 <div id="options" class="options"></div>
 </div>
@@ -181,7 +181,7 @@ I will ask her a few sweet questions about you, her mood, and what she feels abo
 <h3>💘 Result Revealed</h3>
 <div id="resultText" class="result-box"></div>
 <div id="answersSummary" class="result-box"></div>
-<button onclick="startQuiz()" style="margin-top:16px;">Try Again</button>
+<button onclick="startQuiz()" style="margin-top:10px;">Try Again</button>
 </div>
 
 </div>
@@ -192,38 +192,125 @@ const questions = [
   {
     prompt: "What do you think about me?",
     options: [
-      "💗 You are sweet and caring",
-      "😄 You are funny and chaotic",
-      "🌙 You are dreamy and mysterious",
-      "✨ You are extra adorable"
+      { text: "💗 You are sweet and caring", score: 4 },
+      { text: "😄 You are funny and chaotic", score: 3 },
+      { text: "🌙 You are dreamy and mysterious", score: 2 },
+      { text: "✨ You are extra adorable", score: 4 }
     ]
   },
   {
     prompt: "How is her mood right now?",
     options: [
-      "🌸 Happy and glowing",
-      "💞 A little shy but soft",
-      "🎭 Playful and teasing",
-      "🫶 Thinking about you a lot"
+      { text: "🌸 Happy and glowing", score: 3 },
+      { text: "💞 A little shy but soft", score: 4 },
+      { text: "🎭 Playful and teasing", score: 3 },
+      { text: "🫶 Thinking about you a lot", score: 4 }
     ]
   },
   {
     prompt: "What does she feel about you?",
     options: [
-      "💘 She smiles because of you",
-      "🫰 She feels safe with you",
-      "💌 She thinks about you often",
-      "🌈 She wants to be close to you"
+      { text: "💘 She smiles because of you", score: 4 },
+      { text: "🫰 She feels safe with you", score: 5 },
+      { text: "💌 She thinks about you often", score: 5 },
+      { text: "🌈 She wants to be close to you", score: 5 }
+    ]
+  },
+  {
+    prompt: "When you are around, what happens?",
+    options: [
+      { text: "🌼 She becomes calmer", score: 4 },
+      { text: "😊 She starts smiling more", score: 4 },
+      { text: "💫 She gets a little nervous", score: 3 },
+      { text: "🎀 She becomes extra playful", score: 3 }
+    ]
+  },
+  {
+    prompt: "How does she talk about you?",
+    options: [
+      { text: "With warmth", score: 4 },
+      { text: "With shy giggles", score: 3 },
+      { text: "With a lot of care", score: 4 },
+      { text: "Like a little secret crush", score: 5 }
+    ]
+  },
+  {
+    prompt: "What kind of energy do you bring?",
+    options: [
+      { text: "Comfort", score: 4 },
+      { text: "Sparkle", score: 4 },
+      { text: "Mystery", score: 3 },
+      { text: "Butterflies", score: 5 }
+    ]
+  },
+  {
+    prompt: "If she had to describe your bond, what would she say?",
+    options: [
+      { text: "Soft and safe", score: 4 },
+      { text: "Cute and chaotic", score: 3 },
+      { text: "Dreamy and deep", score: 4 },
+      { text: "Very special", score: 5 }
+    ]
+  },
+  {
+    prompt: "How often does she seem to think of you?",
+    options: [
+      { text: "Sometimes", score: 2 },
+      { text: "Often", score: 3 },
+      { text: "Very often", score: 4 },
+      { text: "Almost all the time", score: 5 }
+    ]
+  },
+  {
+    prompt: "What does her heart seem to say?",
+    options: [
+      { text: "You matter a lot", score: 4 },
+      { text: "You feel special", score: 4 },
+      { text: "You feel like home", score: 5 },
+      { text: "You are unforgettable", score: 5 }
+    ]
+  },
+  {
+    prompt: "What should the final vibe be?",
+    options: [
+      { text: "Gentle affection", score: 4 },
+      { text: "Flirty sweetness", score: 4 },
+      { text: "Deep soft love", score: 5 },
+      { text: "Tiny but powerful crush", score: 5 }
     ]
   }
 ];
 
 let currentStep = 0;
 let answers = [];
+const storageKey = "gelluuuuu-quiz-answers";
+
+function saveAnswers(){
+  localStorage.setItem(storageKey, JSON.stringify({ answers, currentStep }));
+}
+
+function loadSavedAnswers(){
+  try {
+    const saved = JSON.parse(localStorage.getItem(storageKey));
+    if(saved && Array.isArray(saved.answers) && saved.answers.length){
+      answers = saved.answers;
+      currentStep = saved.currentStep || answers.length;
+      return true;
+    }
+  } catch (e) {
+    console.log("No saved quiz data yet.");
+  }
+  return false;
+}
+
+function clearSavedAnswers(){
+  localStorage.removeItem(storageKey);
+}
 
 function startQuiz(){
   currentStep = 0;
   answers = [];
+  clearSavedAnswers();
   document.getElementById("intro").classList.add("hidden");
   document.getElementById("result").classList.add("hidden");
   document.getElementById("quiz").classList.remove("hidden");
@@ -241,7 +328,7 @@ function showQuestion(){
   q.options.forEach((option) => {
     const btn = document.createElement("button");
     btn.className = "option-btn";
-    btn.textContent = option;
+    btn.textContent = option.text;
     btn.onclick = () => selectAnswer(option);
     optionsBox.appendChild(btn);
   });
@@ -249,6 +336,7 @@ function showQuestion(){
 
 function selectAnswer(option){
   answers.push(option);
+  saveAnswers();
 
   if(currentStep < questions.length - 1){
     currentStep++;
@@ -258,36 +346,56 @@ function selectAnswer(option){
   }
 }
 
+function renderChoices(){
+  const summary = answers.map((item, index) => `<div class="small"><strong>${index + 1}. ${questions[index].prompt}</strong><br>↳ ${item.text}</div>`).join("");
+  document.getElementById("answersSummary").innerHTML = `<strong>What she chose:</strong><br>${summary}`;
+}
+
+function calculateLoveMeter(){
+  const maxScore = questions.reduce((sum, question) => sum + Math.max(...question.options.map(option => option.score)), 0);
+  const currentScore = answers.reduce((sum, item) => sum + item.score, 0);
+  return Math.round((currentScore / maxScore) * 100);
+}
+
+function getVerdict(score){
+  if(score >= 90){
+    return "🚨 This is major heart-eyes energy. The vibe is intense, sweet, and very hard to ignore.";
+  }
+  if(score >= 75){
+    return "💖 The love meter is glowing. This feels warm, affectionate, and very real.";
+  }
+  if(score >= 55){
+    return "✨ The vibe is soft and sweet. There is clear affection, just with a little mystery in it.";
+  }
+  return "🌙 The energy is gentle and cute. It feels like a shy little spark that could grow beautifully.";
+}
+
 function showResult(){
   document.getElementById("quiz").classList.add("hidden");
   document.getElementById("result").classList.remove("hidden");
 
-  const summary = answers.map((answer, index) => `<div class="small">${index + 1}. ${answer}</div>`).join("");
+  renderChoices();
 
-  let title = "💞 Soft Heart Energy";
-  let description = "She sees you as someone warm, sweet, and worth smiling about. The vibe is gentle, loving, and quietly precious.";
+  const lovePercent = calculateLoveMeter();
+  const verdict = getVerdict(lovePercent);
 
-  const moodAnswer = answers[1] || "";
-  const feelingAnswer = answers[2] || "";
-
-  if(moodAnswer.includes("Playful") && feelingAnswer.includes("close")){
-    title = "🎀 Playful Little Crush";
-    description = "This one feels flirty, bubbly, and full of tiny heart sparks. She is not just happy with you — she is enjoying the feeling of being near you.";
-  } else if(moodAnswer.includes("shy") && feelingAnswer.includes("safe")){
-    title = "🌙 Soft and Secret Feelings";
-    description = "Her heart is calm around you, but she may be hiding a lot of tenderness behind a shy smile. This is the kind of love that grows quietly.";
-  } else if(feelingAnswer.includes("thinks about you")){
-    title = "💫 Deep Tiny Thoughtful Love";
-    description = "She is thinking about you more than she says. That means your presence is staying in her heart, and it is making her feel warm and dreamy.";
-  }
-
-  document.getElementById("resultText").innerHTML = `<h4>${title}</h4><p>${description}</p>`;
-  document.getElementById("answersSummary").innerHTML = `<strong>Captured answers:</strong><br>${summary}`;
+  document.getElementById("resultText").innerHTML = `<h4>💖 Love Meter: ${lovePercent}%</h4><p>${verdict}</p>`;
 }
 
-</script>
+window.addEventListener("DOMContentLoaded", () => {
+  if(loadSavedAnswers()){
+    document.getElementById("intro").classList.add("hidden");
+    document.getElementById("quiz").classList.add("hidden");
+    document.getElementById("result").classList.remove("hidden");
+    renderChoices();
 
-</body>
+    const lovePercent = calculateLoveMeter();
+    const verdict = getVerdict(lovePercent);
+    document.getElementById("resultText").innerHTML = `<h4>💖 Your saved love meter</h4><p>${lovePercent}%</p><p>${verdict}</p>`;
+  }
+});
+
+</script>
 
 </body>
 </html>
