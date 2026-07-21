@@ -14,17 +14,19 @@ body{
     display:flex;
     justify-content:center;
     align-items:center;
-    height:100vh;
+    min-height:100vh;
     text-align:center;
-    overflow:hidden;
+    overflow:auto;
     position:relative;
+    padding:20px;
+    box-sizing:border-box;
 }
 
 .card{
     background:rgba(22,27,34,0.95);
     padding:25px;
     border-radius:22px;
-    width:min(90%, 400px);
+    width:min(90%, 430px);
     box-shadow:0 0 35px rgba(255,255,255,0.25);
     position:relative;
     border:2px solid rgba(255,255,255,0.15);
@@ -110,6 +112,26 @@ button:hover{
 
 .blink{animation: blink 0.8s infinite;}
 
+.options{display:grid; gap:10px; margin-top:16px;}
+
+.option-btn{
+    width:100%;
+    margin-top:0;
+    padding:11px 14px;
+    font-size:14px;
+    border-radius:14px;
+    background:linear-gradient(135deg,#ff6f91,#ff9f1c);
+    box-shadow:0 4px 12px rgba(255,111,145,0.25);
+}
+
+.option-btn:hover{transform:translateY(-2px);}
+
+.hidden{display:none;}
+
+.small{font-size:13px; color:#ffd6e8; margin-top:10px;}
+
+.result-box{margin-top:14px; padding:12px; border-radius:14px; background:rgba(255,255,255,0.08); text-align:left;}
+
 @keyframes float{
     0%,100%{transform:translateY(0) scale(1);opacity:0.4;}
     50%{transform:translateY(-12px) scale(1.2);opacity:1;}
@@ -139,121 +161,133 @@ button:hover{
 <div class="sparkle" style="top:20px; right:25px; animation-delay:0.6s;"></div>
 <div class="sparkle" style="bottom:20px; left:30px; animation-delay:1.1s;"></div>
 
-<h2 id="title">💖 Gelluuuuuuu Personality Test <span class="emoji">✨</span></h2>
+<h2 id="title">💖 Gelluuuuuuu Love Mood Test <span class="emoji">✨</span></h2>
 
+<div id="intro">
 <p id="text" class="blink">
-This adorable test reveals your sweetest, silliest, and most magical personality traits. 💕<br>And yes... it is about to reveal something very special. 😌 🌸💫👧✨
+A tiny little quiz for your heart 💕<br>
+I will ask her a few sweet questions about you, her mood, and what she feels about you. Then I will define the result with extra cuteness. 🌸💫
 </p>
-
-<div class="bar" id="bar">
-<div class="fill" id="fill"></div>
+<button onclick="startQuiz()">Start Quiz</button>
 </div>
 
-<div class="result" id="result">
-<h2>🎉 Scan Complete 💖</h2>
-
-<div class="result-row">💗 Love Meter : 100%</div>
-<div class="result-row">✨ Curiosity : 5/5</div>
-<div class="result-row">💌 Patience : 4/5</div>
-<div class="result-row">😄 Smile : Detected ❤️</div>
-<div class="result-row">🧡 Drama : Maximum</div>
-<div class="result-row">🌸 Mischief : Legendary</div>
-<div class="result-row">👧 Cute Factor : Off the charts</div>
-<div class="result-row">💞 Tiny Girl Vibes : Pure magic</div>
-
-<h3>😂 RESULT 😂</h3>
-
-<p>
-You clicked every button just to know the result! 🤣
-<br><br>
-💘 Now smile... Mission Successful.
-</p>
+<div id="quiz" class="hidden">
+<p id="progress" class="small">Question 1 of 3</p>
+<h3 id="questionText">Question will appear here</h3>
+<div id="options" class="options"></div>
 </div>
 
-<div class="fake-btns">
-<button onclick="next()" id="btn">Start Scan</button>
-<button onclick="surprise()">Try Surprise</button>
-<button onclick="showLove()">Love Mode</button>
-<button onclick="showDrama()">Drama Mode</button>
-<button onclick="showCute()">Cute Mode</button>
+<div id="result" class="hidden">
+<h3>💘 Result Revealed</h3>
+<div id="resultText" class="result-box"></div>
+<div id="answersSummary" class="result-box"></div>
+<button onclick="startQuiz()" style="margin-top:16px;">Try Again</button>
 </div>
 
 </div>
 
 <script>
 
-let step=0;
+const questions = [
+  {
+    prompt: "What do you think about me?",
+    options: [
+      "💗 You are sweet and caring",
+      "😄 You are funny and chaotic",
+      "🌙 You are dreamy and mysterious",
+      "✨ You are extra adorable"
+    ]
+  },
+  {
+    prompt: "How is her mood right now?",
+    options: [
+      "🌸 Happy and glowing",
+      "💞 A little shy but soft",
+      "🎭 Playful and teasing",
+      "🫶 Thinking about you a lot"
+    ]
+  },
+  {
+    prompt: "What does she feel about you?",
+    options: [
+      "💘 She smiles because of you",
+      "🫰 She feels safe with you",
+      "💌 She thinks about you often",
+      "🌈 She wants to be close to you"
+    ]
+  }
+];
 
-function next(){
+let currentStep = 0;
+let answers = [];
 
-    step++;
-
-    if(step==1){
-        document.getElementById("text").innerHTML="📡 Connecting to AI Server...";
-        document.getElementById("text").classList.remove("blink");
-        document.getElementById("title").innerHTML="💖 Gelluuuuuuu Personality Test <span class=\"emoji\">⚡</span>";
-    }
-
-    if(step==2){
-        document.getElementById("text").innerHTML="🧠 Reading Curiosity Level...";
-        document.getElementById("bar").style.display="block";
-        document.getElementById("text").classList.add("blink");
-        document.getElementById("title").innerHTML="💖 Gelluuuuuuu Personality Test <span class=\"emoji\">🌙</span>";
-
-        setTimeout(()=>{
-            document.getElementById("fill").style.width="100%";
-        },100);
-
-    }
-
-    if(step==3){
-
-        document.getElementById("text").innerHTML="Calculating Final Result...";
-        document.getElementById("text").classList.add("blink");
-        document.getElementById("title").innerHTML="💖 Gelluuuuuuu Personality Test <span class=\"emoji\">💫</span>";
-
-        setTimeout(()=>{
-
-            document.getElementById("title").style.display="none";
-            document.getElementById("text").style.display="none";
-            document.getElementById("bar").style.display="none";
-            document.getElementById("btn").style.display="none";
-            document.getElementById("result").style.display="block";
-
-        },3000);
-
-    }
-
+function startQuiz(){
+  currentStep = 0;
+  answers = [];
+  document.getElementById("intro").classList.add("hidden");
+  document.getElementById("result").classList.add("hidden");
+  document.getElementById("quiz").classList.remove("hidden");
+  showQuestion();
 }
 
-function surprise(){
-    document.getElementById("text").innerHTML="😏 The AI says: You are secretly a chaos goblin... but lovable.";
-    document.getElementById("bar").style.display="block";
-    document.getElementById("fill").style.width="100%";
-    setTimeout(()=>{
-        document.getElementById("text").innerHTML="✨ Bonus: You have 100% charm, 0% chill, and 999% snack energy.";
-    },1800);
+function showQuestion(){
+  const q = questions[currentStep];
+  document.getElementById("questionText").textContent = q.prompt;
+  document.getElementById("progress").textContent = `Question ${currentStep + 1} of ${questions.length}`;
+
+  const optionsBox = document.getElementById("options");
+  optionsBox.innerHTML = "";
+
+  q.options.forEach((option) => {
+    const btn = document.createElement("button");
+    btn.className = "option-btn";
+    btn.textContent = option;
+    btn.onclick = () => selectAnswer(option);
+    optionsBox.appendChild(btn);
+  });
 }
 
-function showLove(){
-    document.getElementById("text").innerHTML="💘 The AI detected a strong love signal... and a very cute one too.";
-    document.getElementById("bar").style.display="block";
-    document.getElementById("fill").style.width="100%";
+function selectAnswer(option){
+  answers.push(option);
+
+  if(currentStep < questions.length - 1){
+    currentStep++;
+    showQuestion();
+  } else {
+    showResult();
+  }
 }
 
-function showDrama(){
-    document.getElementById("text").innerHTML="🎭 Drama level rising... prepare for maximum softness.";
-    document.getElementById("bar").style.display="block";
-    document.getElementById("fill").style.width="100%";
-}
+function showResult(){
+  document.getElementById("quiz").classList.add("hidden");
+  document.getElementById("result").classList.remove("hidden");
 
-function showCute(){
-    document.getElementById("text").innerHTML="🌸 Cute overload activated... adorable chaos incoming.";
-    document.getElementById("bar").style.display="block";
-    document.getElementById("fill").style.width="100%";
+  const summary = answers.map((answer, index) => `<div class="small">${index + 1}. ${answer}</div>`).join("");
+
+  let title = "💞 Soft Heart Energy";
+  let description = "She sees you as someone warm, sweet, and worth smiling about. The vibe is gentle, loving, and quietly precious.";
+
+  const moodAnswer = answers[1] || "";
+  const feelingAnswer = answers[2] || "";
+
+  if(moodAnswer.includes("Playful") && feelingAnswer.includes("close")){
+    title = "🎀 Playful Little Crush";
+    description = "This one feels flirty, bubbly, and full of tiny heart sparks. She is not just happy with you — she is enjoying the feeling of being near you.";
+  } else if(moodAnswer.includes("shy") && feelingAnswer.includes("safe")){
+    title = "🌙 Soft and Secret Feelings";
+    description = "Her heart is calm around you, but she may be hiding a lot of tenderness behind a shy smile. This is the kind of love that grows quietly.";
+  } else if(feelingAnswer.includes("thinks about you")){
+    title = "💫 Deep Tiny Thoughtful Love";
+    description = "She is thinking about you more than she says. That means your presence is staying in her heart, and it is making her feel warm and dreamy.";
+  }
+
+  document.getElementById("resultText").innerHTML = `<h4>${title}</h4><p>${description}</p>`;
+  document.getElementById("answersSummary").innerHTML = `<strong>Captured answers:</strong><br>${summary}`;
 }
 
 </script>
+
+</body>
 
 </body>
 </html>
