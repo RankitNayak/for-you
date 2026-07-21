@@ -166,8 +166,9 @@ button:hover{
 <div id="intro">
 <p id="text" class="blink">
 A tiny little quiz for your heart 💕<br>
-She will answer 10 sweet questions about you, her mood, and what she feels about you. Then the love meter will be calculated with a cute little algorithm. 🌸💫
+I will answer 10 sweet questions about you, my mood, and what I feel about you. Then the love meter will be calculated with a cute little algorithm. 🌸💫
 </p>
+<p class="small">Your answers are saved automatically in this browser. If she uses a different browser or device, the answers will not appear there unless a backend is added.</p>
 <button onclick="startQuiz()">Start Quiz</button>
 </div>
 
@@ -190,93 +191,111 @@ She will answer 10 sweet questions about you, her mood, and what she feels about
 
 const questions = [
   {
-    prompt: "What do you think about me?",
+    prompt: "What do I think about you?",
     options: [
-      { text: "💗 You are sweet and caring", score: 4 },
-      { text: "😄 You are funny and chaotic", score: 3 },
-      { text: "🌙 You are dreamy and mysterious", score: 2 },
-      { text: "✨ You are extra adorable", score: 4 }
+      { text: "I think you are kind and genuine", score: 4 },
+      { text: "I think you are caring and dependable", score: 4 },
+      { text: "I think you are thoughtful, but a little hard to read", score: 3 },
+      { text: "I think you are difficult, but still important to me", score: 2 }
     ]
   },
   {
-    prompt: "How is her mood right now?",
+    prompt: "How is my mood right now?",
     options: [
-      { text: "🌸 Happy and glowing", score: 3 },
-      { text: "💞 A little shy but soft", score: 4 },
-      { text: "🎭 Playful and teasing", score: 3 },
-      { text: "🫶 Thinking about you a lot", score: 4 }
+      { text: "I feel calm and comfortable", score: 4 },
+      { text: "I feel a little emotional but still steady", score: 3 },
+      { text: "I feel mixed and unsure", score: 2 },
+      { text: "I feel distant and overwhelmed", score: 1 }
     ]
   },
   {
-    prompt: "What does she feel about you?",
+    prompt: "What do I feel about you?",
     options: [
-      { text: "💘 She smiles because of you", score: 4 },
-      { text: "🫰 She feels safe with you", score: 5 },
-      { text: "💌 She thinks about you often", score: 5 },
-      { text: "🌈 She wants to be close to you", score: 5 }
+      { text: "I feel warm and affectionate toward you", score: 5 },
+      { text: "I feel comfortable and attached to you", score: 4 },
+      { text: "I feel unsure, but I still care", score: 2 },
+      { text: "I feel conflicted and emotionally tired", score: 1 }
     ]
   },
   {
-    prompt: "When you are around, what happens?",
+    prompt: "When you are around, what happens to me?",
     options: [
-      { text: "🌼 She becomes calmer", score: 4 },
-      { text: "😊 She starts smiling more", score: 4 },
-      { text: "💫 She gets a little nervous", score: 3 },
-      { text: "🎀 She becomes extra playful", score: 3 }
+      { text: "I feel more at ease", score: 4 },
+      { text: "I feel happier and more relaxed", score: 4 },
+      { text: "I feel nervous or guarded", score: 2 },
+      { text: "I feel tense and unsettled", score: 1 }
     ]
   },
   {
-    prompt: "How does she talk about you?",
+    prompt: "How do I talk about you?",
     options: [
-      { text: "With warmth", score: 4 },
-      { text: "With shy giggles", score: 3 },
-      { text: "With a lot of care", score: 4 },
-      { text: "Like a little secret crush", score: 5 }
+      { text: "I talk about you with care and respect", score: 4 },
+      { text: "I talk about you with affection", score: 4 },
+      { text: "I talk about you cautiously", score: 2 },
+      { text: "I avoid talking about you openly", score: 1 }
     ]
   },
   {
-    prompt: "What kind of energy do you bring?",
+    prompt: "What kind of energy do you bring to me?",
     options: [
-      { text: "Comfort", score: 4 },
-      { text: "Sparkle", score: 4 },
-      { text: "Mystery", score: 3 },
-      { text: "Butterflies", score: 5 }
+      { text: "You bring me comfort", score: 4 },
+      { text: "You bring me stability", score: 4 },
+      { text: "You bring me confusion sometimes", score: 2 },
+      { text: "You bring me stress more than peace", score: 1 }
     ]
   },
   {
-    prompt: "If she had to describe your bond, what would she say?",
+    prompt: "If I had to describe our bond, what would I say?",
     options: [
-      { text: "Soft and safe", score: 4 },
-      { text: "Cute and chaotic", score: 3 },
-      { text: "Dreamy and deep", score: 4 },
-      { text: "Very special", score: 5 }
+      { text: "We have a strong emotional connection", score: 5 },
+      { text: "We are meaningful to each other", score: 4 },
+      { text: "We are complicated but still attached", score: 2 },
+      { text: "We are distant and uncertain", score: 1 }
     ]
   },
   {
-    prompt: "How often does she seem to think of you?",
+    prompt: "How often do I seem to think of you?",
     options: [
-      { text: "Sometimes", score: 2 },
-      { text: "Often", score: 3 },
-      { text: "Very often", score: 4 },
-      { text: "Almost all the time", score: 5 }
+      { text: "I think about you often", score: 4 },
+      { text: "I think about you regularly", score: 3 },
+      { text: "I think about you occasionally", score: 2 },
+      { text: "I do not think about you very often", score: 1 }
     ]
   },
   {
-    prompt: "What does her heart seem to say?",
+    prompt: "What does my heart seem to say?",
     options: [
-      { text: "You matter a lot", score: 4 },
-      { text: "You feel special", score: 4 },
-      { text: "You feel like home", score: 5 },
-      { text: "You are unforgettable", score: 5 }
+      { text: "It says you matter to me", score: 4 },
+      { text: "It says I still care deeply", score: 4 },
+      { text: "It says I am still figuring things out", score: 2 },
+      { text: "It says I need space", score: 1 }
     ]
   },
   {
-    prompt: "What should the final vibe be?",
+    prompt: "Do I ever make you feel unsure or confused?",
     options: [
-      { text: "Gentle affection", score: 4 },
-      { text: "Flirty sweetness", score: 4 },
-      { text: "Deep soft love", score: 5 },
-      { text: "Tiny but powerful crush", score: 5 }
+      { text: "Not really, I feel calm with you", score: 4 },
+      { text: "Sometimes, but I still care", score: 2 },
+      { text: "A little, and it affects how I feel", score: 1 },
+      { text: "Yes, and it feels emotionally heavy", score: 0 }
+    ]
+  },
+  {
+    prompt: "Do I still make you feel safe when things get messy?",
+    options: [
+      { text: "Yes, you make me feel safe", score: 4 },
+      { text: "Mostly, even when I am overwhelmed", score: 3 },
+      { text: "Sometimes, but not always", score: 2 },
+      { text: "Not really", score: 0 }
+    ]
+  },
+  {
+    prompt: "What is the most honest answer about how I feel?",
+    options: [
+      { text: "I care deeply and want closeness", score: 5 },
+      { text: "I care, but I am still trying to understand it", score: 3 },
+      { text: "I am uncertain and emotionally conflicted", score: 2 },
+      { text: "I feel distant and unsure about us", score: 1 }
     ]
   }
 ];
@@ -349,6 +368,27 @@ function selectAnswer(option){
 function renderChoices(){
   const summary = answers.map((item, index) => `<div class="small"><strong>${index + 1}. ${questions[index].prompt}</strong><br>↳ ${item.text}</div>`).join("");
   document.getElementById("answersSummary").innerHTML = `<strong>What she chose:</strong><br>${summary}`;
+}
+
+function exportAnswers(){
+  const payload = {
+    exportedAt: new Date().toISOString(),
+    answers: answers.map((item, index) => ({
+      question: questions[index].prompt,
+      answer: item.text,
+      score: item.score
+    }))
+  };
+
+  const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = "gelluuuuu-answers.json";
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  URL.revokeObjectURL(url);
 }
 
 function calculateLoveMeter(){
