@@ -1,103 +1,144 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>For My Girl</title>
-    <style>
-      :root {
-        color-scheme: dark;
-      }
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Personality Scan</title>
 
-      * {
-        box-sizing: border-box;
-      }
+<style>
+body{
+    margin:0;
+    font-family:Arial;
+    background:#0d1117;
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    text-align:center;
+}
 
-      body {
-        margin: 0;
-        font-family: "Trebuchet MS", Arial, sans-serif;
-        min-height: 100vh;
-        display: grid;
-        place-items: center;
-        padding: 1.5rem;
-        background: linear-gradient(135deg, #ff5e7a 0%, #ff8e53 45%, #ffd166 100%);
-        color: #fff;
-      }
+.card{
+    background:#161b22;
+    padding:25px;
+    border-radius:15px;
+    width:320px;
+    box-shadow:0 0 20px #00ff99;
+}
 
-      .card {
-        width: min(100%, 760px);
-        background: rgba(255, 255, 255, 0.16);
-        border: 1px solid rgba(255, 255, 255, 0.28);
-        backdrop-filter: blur(14px);
-        border-radius: 24px;
-        padding: 2rem;
-        box-shadow: 0 20px 45px rgba(0, 0, 0, 0.2);
-        text-align: center;
-      }
+button{
+    margin-top:20px;
+    padding:12px 25px;
+    font-size:16px;
+    border:none;
+    border-radius:8px;
+    background:#00c853;
+    color:white;
+    cursor:pointer;
+}
 
-      .heart {
-        font-size: 3rem;
-        margin-bottom: 0.5rem;
-        animation: pulse 1.2s infinite;
-      }
+.bar{
+    width:100%;
+    height:18px;
+    background:#333;
+    border-radius:10px;
+    margin-top:20px;
+    overflow:hidden;
+    display:none;
+}
 
-      h1 {
-        margin: 0 0 0.7rem;
-        font-size: clamp(2rem, 4vw, 2.8rem);
-      }
+.fill{
+    height:100%;
+    width:0%;
+    background:#00ff99;
+    transition:width 3s linear;
+}
 
-      p {
-        margin: 0 auto 1rem;
-        line-height: 1.7;
-        font-size: 1.05rem;
-        max-width: 620px;
-      }
+.result{
+    display:none;
+    font-size:18px;
+    line-height:1.6;
+}
+</style>
+</head>
 
-      .button {
-        border: none;
-        border-radius: 999px;
-        padding: 0.85rem 1.2rem;
-        background: #fff;
-        color: #ff4d6d;
-        font-weight: 700;
-        cursor: pointer;
-        font-size: 1rem;
-        margin-top: 0.5rem;
-      }
+<body>
 
-      .message {
-        margin-top: 1rem;
-        padding: 1rem;
-        border-radius: 16px;
-        background: rgba(255, 255, 255, 0.18);
-        display: none;
-      }
+<div class="card">
 
-      @keyframes pulse {
-        0%, 100% { transform: scale(1); }
-        50% { transform: scale(1.15); }
-      }
-    </style>
-  </head>
-  <body>
-    <main class="card">
-      <div class="heart">💖</div>
-      <h1>For my favorite girl</h1>
-      <p>You make my world brighter, sweeter, and a whole lot more fun. I just wanted to make you a little page that says: you are loved, admired, and so special to me.</p>
-      <button class="button" id="revealBtn">Tap for a surprise</button>
-      <div class="message" id="messageBox">
-        <strong>You are my favorite person, my smile, and my happy place. ❤️</strong>
-      </div>
-    </main>
+<h2 id="title">🤖 AI Personality Scanner</h2>
 
-    <script>
-      const revealBtn = document.getElementById('revealBtn');
-      const messageBox = document.getElementById('messageBox');
+<p id="text">
+This AI can analyze your personality with 99.98% accuracy.
+</p>
 
-      revealBtn.addEventListener('click', () => {
-        messageBox.style.display = 'block';
-        revealBtn.textContent = 'You already know it';
-      });
-    </script>
-  </body>
+<div class="bar" id="bar">
+<div class="fill" id="fill"></div>
+</div>
+
+<div class="result" id="result">
+<h2>🎉 Scan Complete</h2>
+
+<p>
+Curiosity : ⭐⭐⭐⭐⭐<br>
+Patience : ⭐⭐⭐⭐☆<br>
+Smile : ❌ Not Detected
+</p>
+
+<h3>😂 RESULT 😂</h3>
+
+<p>
+You clicked every button just to know the result! 🤣
+<br><br>
+😊 Now smile... Mission Successful.
+</p>
+</div>
+
+<button onclick="next()" id="btn">Start Scan</button>
+
+</div>
+
+<script>
+
+let step=0;
+
+function next(){
+
+    step++;
+
+    if(step==1){
+        document.getElementById("text").innerHTML="📡 Connecting to AI Server...";
+    }
+
+    if(step==2){
+        document.getElementById("text").innerHTML="🧠 Reading Curiosity Level...";
+        document.getElementById("bar").style.display="block";
+
+        setTimeout(()=>{
+            document.getElementById("fill").style.width="100%";
+        },100);
+
+    }
+
+    if(step==3){
+
+        document.getElementById("text").innerHTML="Calculating Final Result...";
+
+        setTimeout(()=>{
+
+            document.getElementById("title").style.display="none";
+            document.getElementById("text").style.display="none";
+            document.getElementById("bar").style.display="none";
+            document.getElementById("btn").style.display="none";
+            document.getElementById("result").style.display="block";
+
+        },3000);
+
+    }
+
+}
+
+</script>
+
+</body>
 </html>
